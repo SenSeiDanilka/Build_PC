@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Собери Пк</title>
+</head>
+<body>
+    <div>
+        <h1>Собери Пк</h1>
+        <h3>
+            Твоя главная задача собрать пк, в правильной последовательности!
+        </h3>
+    </div>
+    <div class="game-container">
+        <div class="PC_Component_Grid">
+            <div class="PC" style="text-align: center;">
+                <div class="PC_Front_Panel">
+                    <span class="PC_Text_Logo">GAMING_CASE v1.0</span>
+                    <div class="DVD">
+                        <div class="RGB_light" id="led"></div>
+                    </div>
+                </div>
+
+                <!-- Ячейки ПК -->
+                <div class="card_board" data-type="motherboard">Материнская плата</div>
+                <div class="card_board" data-type="cpu">Процессор</div>
+                <div class="card_board" data-type="cooler">Кулер Процессора</div>
+                <div class="card_board" data-type="ram">Оперативная память</div>
+                <div class="card_board" data-type="power">Блок Питания</div>
+                <div class="card_board" data-type="ssd">Накопитель</div>
+                <div class="card_board" data-type="gpu">Видеокарта</div>
+                <div class="DVD" id="led"></div>
+
+                <div class="ProgresBar">
+                    <div class="progress-label">
+                        <span>Сборка ПК</span>
+                        <span id="progress-text">0%</span>
+                    </div>
+                    <div class="progress-bar-gradient">
+                        <div class="progress-fill-gradient" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора детали с подсказками -->
+    <div class="modal-overlay" id="selectionModal">
+        <div class="modal-content select-modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modal-slot-title">Выберите деталь</h2>
+                    <!-- Сюда JavaScript будет выводить подсказки -->
+                    <p id="modal-hint" style="color: #eccc68; margin: 5px 0 0 0; font-size: 13px; text-align: left; font-style: italic;"></p>
+                </div>
+                <span class="close-modal" id="closeSelection">&times;</span>
+            </div>
+            <div class="options-list">
+                <div class="option-row" data-value="cpu" data-name="Ryzen 7 9800 X3D">Ryzen 7 9800 X3D</div>
+                <div class="option-row" data-value="ssd" data-name="MSI SPATIUM M480 PRO">MSI SPATIUM M480 PRO 2,5TB</div>
+                <div class="option-row" data-value="gpu" data-name="Radeon 9070 XT AORUS ELITE">Radeon 9070 XT AORUS ELITE 16GB</div>
+                <div class="option-row" data-value="power" data-name="DEEPCOOL GamerStorm PQ1200G">DEEPCOOL GamerStorm PQ1200G 1200W</div>
+                <div class="option-row" data-value="motherboard" data-name="ASUS ROG STRIX B850-F GAMING">ASUS ROG STRIX B850-F GAMING</div>
+                <div class="option-row" data-value="ram" data-name="ADATA XPG Lancer Blade RGB">ADATA XPG Lancer Blade RGB 32GB </div>
+                <div class="option-row" data-value="cooler" data-name="DEEPCOOL AG620 BK ARGB V2">DEEPCOOL AG620 BK ARGB V2</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="winModal">
+        <div class="modal-content">
+            <h2>🎉 Сборка завершена!</h2>
+            <p>Вы успешно собрали мощнейший игровой ПК в идеальной последовательности. Система запущена и работает отлично!</p>
+            <button class="modal-btn" onclick="location.reload()">Собрать ещё раз</button>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>

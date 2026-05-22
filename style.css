@@ -1,0 +1,468 @@
+*{
+    user-select: none;
+}
+.draggable-element{
+    touch-action: none;
+}
+body{   
+    background: linear-gradient(100deg, rgb(40, 40, 40) 5%, rgb(70, 70, 70) 15%,  rgb(0, 217, 255) 35%,  rgb(255, 0, 0) 65%,  rgb(70, 70, 70) 85%,  rgb(40, 40, 40) 100%);
+}
+h1{
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3{
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ProgresBar{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background-color: #222;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #2d2d2d;
+}
+.PC{
+    width: 335px; /* Немного расширили для реалистичных пропорций */
+    height: auto;
+    padding: 20px;
+    padding-bottom: 25px;
+    border-radius: 16px;
+    background-color: #1a1a1a; /* Глубокий матовый черный цвет */
+    border: 3px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+}
+.PC_Front_Panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #222;
+    border-radius: 8px;
+    border: 1px solid #2d2d2d;
+}
+.PC_Component_Grid {
+    background-color: #111111; /* Внутреннее пространство ПК */
+    border: 2px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+.PC_Component_Items_Grid {
+    background-color: #111111; /* Внутреннее пространство ПК */
+    border: 2px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+.PC_Text_Logo {
+    color: #828282;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+.DVD{
+    margin: 0;
+    padding: 0;
+    background: none;
+    width: auto;
+    height: auto;
+}
+.Items{
+    aspect-ratio: 1 / 1;
+    width: 325px;
+    max-height: 380px;
+    border-radius: 20px;
+    background-color: rgb(55, 55, 55);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+.card_board{
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px dashed #444;
+    border-radius: 6px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card_board.installed {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32) !important;
+    border: 1px solid #4caf50 !important;
+    color: #fff !important;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 0;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+    transform: scale(1.02);
+}
+.card_items{
+    height: 100%;
+    margin: 10 10px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    border-style: solid;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    background-color: #252525;
+    transition: all 0.3s ease;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+/* Фиксируем размеры карточки, когда её тянут пальцем */
+.card_items[style*="position: fixed"] {
+    width: 280px !important;       /* Четкая фиксированная ширина */
+    height: auto !important;        /* Высота подстроится под контент */
+    max-width: 85vw !important;     /* Не даст карточке вылезти за пределы экрана */
+    box-sizing: border-box !important;
+    
+    /* Красивые визуальные эффекты отрыва */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
+    transform: scale(0.95) !important; /* Слегка уменьшаем, чтобы палец не закрывал текст */
+    background-color: #2b2b2b !important; /* Сохраняем темный фон карточки */
+    border: 2px solid #007bff !important; /* Делаем синюю обводку при перетаскивании */
+}
+
+/* На всякий случай зажмем внутренности карточки */
+.card_items[style*="position: fixed"] * {
+    max-width: 100% !important;
+    word-break: break-word !important; /* Чтобы текст не расползался вширь */
+}
+/* Делаем ячейки кликабельными курсором-рукой */
+.card_board {
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+.card_board:not(.installed):hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Специфический стиль окна выбора деталей */
+.select-modal-content {
+    background: #252525 !important; /* Глубокий темный игровой фон */
+    border: 3px solid #000000 !important; /* Насыщенная фиолетовая неоновая рамка */
+    box-shadow: 0 0 25px rgba(108, 92, 231, 0.5);
+    max-width: 450px;
+    width: 90%;
+    padding: 20px;
+    border-radius: 12px;
+}
+/* Стиль для уже выбранных/установленных деталей в списке */
+.option-row.used {
+    background: #1c1c24 !important;
+    border-color: #2d2d3d !important;
+    color: #555566 !important;
+    text-decoration: line-through; /* Перечеркиваем текст */
+    cursor: not-allowed; /* Курсор запрета */
+    transform: none !important; /* Отключаем сдвиг вправо при наведении */
+    opacity: 0.6;
+}
+
+/* Оформление шапки окна под заголовок и подсказку */
+.modal-header div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Шапка окна выбора */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #696969;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+#modal-slot-title {
+    margin: 0;
+    font-size: 18px;
+    color: #ffffff; /* Бирюзовый акцент текста */
+}
+.close-modal {
+    font-size: 28px;
+    color: #ff0000;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-modal:hover {
+    color: #ff7675;
+}
+
+/* Список строк-ответов */
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Каждая строчка с вариантом */
+.option-row {
+    padding: 12px 15px;
+    background: #303030;
+    border: 1px solid #151515;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Эффект наведения и выбора строки */
+.option-row:hover {
+    background: #6c5ce7; /* Фиолетовый фон при наведении */
+    border-color: #a29bfe;
+    transform: translateX(5px); /* Легкий сдвиг вправо для динамики */
+}
+
+/* Стиль ячейки ПК, если деталь установлена */
+.card_board.installed {
+    background: #1b4d22 !important;
+    color: #7fff7f !important;
+    border-color: #2e7d32 !important;
+    cursor: not-allowed;
+}
+
+.component-img{
+    width: auto;
+    height: 75px;
+    object-fit: contain;
+    margin-bottom: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tag-h3{
+    color: #ffffff;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
+    
+}
+.tag-p{
+    color: rgb(195, 195, 195);
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    
+}
+.tag-p1{
+    color: rgb(195, 195, 195);
+    font-size: 12px;
+    
+}
+
+
+/*Прогрес бар*/
+ .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 16px;
+    font-weight: bold; color: #72f436;
+    color: #ffffff;
+    
+}
+.progress-bar-gradient {
+    width: 100;
+    height: 25px;
+    margin-left: 8px;
+    margin-right: 5px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+.progress-fill-gradient {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(100deg , #f44336, #f46c36, #f4d836, #72f436);
+    border-radius: 12px;
+    transition: width 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+.progress-fill-gradient::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.2) 0%,
+        rgba(230, 230, 230, 0.4) 50%,
+        rgba(255,255,255,0.2) 100%
+    );
+    animation: shine 2s infinite;
+}
+ @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.card_board.installed {
+    background-color: #2e7d32 !important; /* Зеленая заливка установленного слота */
+    border-style: solid;
+    border-color: #4caf50;
+    font-weight: bold;
+}
+.card_items * {
+    pointer-events: none; /* Защита от потери фокуса мыши при Drag-and-Drop */
+}
+/* Задний фон всплывающего окна (затемнение) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 999;
+}
+
+/* Показываем модалку */
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Контент самого окна */
+.modal-content {
+    background-color: #222;
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    border: 3px solid #39ff14;
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+    transform: scale(0.7);
+    transition: transform 0.5s ease;
+}
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    color: #39ff14;
+    margin-top: 0;
+}
+
+/* Кнопка перезапуска в окне */
+.modal-btn {
+    background: linear-gradient(100deg, #72f436, #36f485);
+    border: none; padding: 12px 25px;
+    color: #000; font-weight: bold;
+    font-size: 16px; border-radius: 8px;
+    cursor: pointer; margin-top: 15px;
+    transition: transform 0.2s;
+}
+.modal-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+/* Защита от багов drag-and-drop с текстом */
+.card_items * {
+    pointer-events: none;
+}
+
+/* Зеленый цвет для собранного слота */
+.card_board.installed {
+    background-color: #2e7d32 !important;
+    border-style: solid;
+    border-color: #4caf50;
+    font-weight: bold;
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+
+/* --- АВТОМАТИЧЕСКОЕ МАСШТАБИРОВАНИЕ ДЛЯ ВСЕХ УСТРОЙСТВ --- */
+
+/* 1. Главный контейнер: на ПК блоки встанут в один ряд, на телефонах — друг под друга */
+.game-container {
+    display: flex;
+    flex-wrap: wrap;         /* Разрешает перенос блоков на мобильных */
+    justify-content: center; /* Центрирует игру по экрану */
+    gap: 30px;               /* Красивый отступ между системником и складом */
+    padding: 15px;
+    max-width: 1200px;
+    margin: 0 auto;          /* Выравнивание по центру страницы */
+}
+
+/* Убираем жесткие привязки к левому краю, которые ломали мобильный вид */
+.PC_Board, .PC_Items {
+    margin: 0 !important; 
+    display: flex;
+    justify-content: center;
+}
+
+/* 2. Адаптивность самого корпуса ПК и склада деталей */
+.PC, .Items {
+    max-width: 100%;        /* Не дает блокам вылезать за края узких экранов */
+    width: 360px;           /* Стандартная базовая ширина */
+    box-sizing: border-box; /* Чтобы внутренние отступы не увеличивали ширину */
+}
+
+/* 3. МЕДИА-ЗАПРОСЫ ДЛЯ ПЛАНШЕТОВ И СМАРТФОНОВ */
+@media (max-width: 768px) {
+    /* На экранах меньше 768px (планшеты и телефоны) блоки выстроятся вертикально */
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    h1 { font-size: 24px; } /* Уменьшаем заголовки, чтобы они красиво смотрелись */
+    h3 { font-size: 16px; padding: 0 10px; }
+
+    /* Оптимизируем высоту склада на мобилках, чтобы не нужно было слишком много листать */
+    .Items {
+        height: 320px; 
+    }
+    
+    /* Делаем карточки комплектующих чуть компактнее на телефонах */
+    .card_items {
+        padding: 8px;
+        margin: 8px 10px;
+    }
+    .component-img {
+        height: 40px; /* Картинка чуть меньше */
+    }
+}
+
+@media (max-width: 400px) {
+    /* Для совсем маленьких экранов телефонов */
+    .PC, .Items {
+        width: 100%; /* Занимают всю доступную ширину экрана смартфона */
+    }
+}
